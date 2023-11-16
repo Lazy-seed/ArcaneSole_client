@@ -4,7 +4,7 @@ import './orderProduct.scss'
 
 export default function OrderProduct() {
 
-    const BASE_URL = 'http://localhost:8000';
+    const BASE_URL = 'https://arcanesole-backend.onrender.com';
 
     useEffect(() => {
         axios.get(`${BASE_URL}/api/getOrders`, { withCredentials: true })

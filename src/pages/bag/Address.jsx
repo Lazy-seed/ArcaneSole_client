@@ -54,7 +54,7 @@ export default function Address() {
         const amt = { amt: TotalPrice + DeliveryPrice }
 
         // creating a new order
-        const result = await axios.post(`http://localhost:8000/payment/orders`, amt, { withCredentials: true });
+        const result = await axios.post(`https://arcanesole-backend.onrender.com/payment/orders`, amt, { withCredentials: true });
 
         if (!result) {
             alert("Server error. Are you online?");
@@ -81,7 +81,7 @@ export default function Address() {
                     razorpaySignature: response.razorpay_signature,
                 };
 
-                const result = await axios.post(`http://localhost:8000/payment/success`, data);
+                const result = await axios.post(`https://arcanesole-backend.onrender.com/payment/success`, data);
 
                 // alert(result.data.msg);
                 if (result.data.msg === 'success') {
@@ -179,7 +179,7 @@ export default function Address() {
 
         const address = { house, area, state, city, pincode }
 
-        axios.post(`http://localhost:8000/api/newOrder`, address, { withCredentials: true }).then((res) => {
+        axios.post(`https://arcanesole-backend.onrender.com/api/newOrder`, address, { withCredentials: true }).then((res) => {
             console.log(res.data);
 
         })

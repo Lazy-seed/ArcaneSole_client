@@ -10,7 +10,7 @@ import { toast } from 'react-hot-toast'
 
 export default function Bag() {
     useEffect(() => {
-        axios.get(`http://localhost:8000/api/getBag`, { withCredentials: true })
+        axios.get(`https://arcanesole-backend.onrender.com/api/getBag`, { withCredentials: true })
             .then((res) => {
                 setData(res.data.bagItems);
                 console.log(res.data);
@@ -102,7 +102,7 @@ export default function Bag() {
     )
 
     function uptData() {
-        axios.get(`http://localhost:8000/api/getBag`, { withCredentials: true })
+        axios.get(`https://arcanesole-backend.onrender.com/api/getBag`, { withCredentials: true })
             .then((res) => {
                 setData(res.data.bagItems);
                 uptData()
@@ -110,7 +110,7 @@ export default function Bag() {
     }
 
     function delBag(id) {
-        axios.get(`http://localhost:8000/api/delBag/${id}`, { withCredentials: true })
+        axios.get(`https://arcanesole-backend.onrender.com/api/delBag/${id}`, { withCredentials: true })
             .then((res) => {
                 console.log(res.data);
                 toast.success("Item has been deleted")
@@ -124,7 +124,7 @@ export default function Bag() {
             pID: id,
             size: size
         }
-        axios.post(`http://localhost:8000/api/uptBag/`, data, { withCredentials: true })
+        axios.post(`https://arcanesole-backend.onrender.com/api/uptBag/`, data, { withCredentials: true })
             .then((res) => {
                 console.log(res.data);
                 toast.success("Size has been updated")
@@ -138,7 +138,7 @@ export default function Bag() {
             qty: qty
         }
         // return null
-        axios.post(`http://localhost:8000/api/uptBag/`, data, { withCredentials: true })
+        axios.post(`https://arcanesole-backend.onrender.com/api/uptBag/`, data, { withCredentials: true })
             .then((res) => {
                 console.log(res.data);
                 toast.success("Qty has been updated")

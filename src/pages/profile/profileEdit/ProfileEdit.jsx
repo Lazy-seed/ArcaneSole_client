@@ -8,7 +8,7 @@ export default function ProfileEdit() {
 
   useEffect(() => {
 
-    axios.get('http://localhost:8000/api/userInfo', { withCredentials: true }).then((response) => {
+    axios.get('https://arcanesole-backend.onrender.com/api/userInfo', { withCredentials: true }).then((response) => {
       console.log(response.data);
       setUserInfo(response.data.userInfo)
     })
@@ -67,7 +67,7 @@ export default function ProfileEdit() {
     var email = document.getElementById("email").value;
     var mobile = document.getElementById("mobile").value;
 
-    axios.post('http://localhost:8000/api/updateUser', { fname, lname, email, mobile }, { withCredentials: true }).then((res) => {
+    axios.post('https://arcanesole-backend.onrender.com/api/updateUser', { fname, lname, email, mobile }, { withCredentials: true }).then((res) => {
       console.log(res.data);
       window.location.reload()
     }).catch((err) => console.log(err))

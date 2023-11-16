@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Col, Container, Row } from 'reactstrap'
 import ProductCard from '../components/ProductCard'
-import { BASE_URL } from '../links'
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import Loader from '../components/loader/Loader';
@@ -10,7 +9,7 @@ export default function Search() {
 
     useEffect(() => {
         setisLoading(true)
-        axios.get(`${BASE_URL}/api/SearchShoe/jordan`, { withCredentials: true })
+        axios.get(`https://arcanesole-backend.onrender.com/api/SearchShoe/jordan`, { withCredentials: true })
             .then((res) => {
                 setData(res.data.result);
                 setisLoading(false)
@@ -49,7 +48,7 @@ export default function Search() {
     );
     function srch_btn() {
         setisLoading(true)
-        axios.get(`${BASE_URL}/api/SearchShoe/${Srch}`, { withCredentials: true })
+        axios.get(`https://arcanesole-backend.onrender.com/api/SearchShoe/${Srch}`, { withCredentials: true })
             .then((res) => {
                 setData(res.data.result);
                 setisLoading(false)

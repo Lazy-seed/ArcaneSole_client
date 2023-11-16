@@ -8,7 +8,7 @@ import Loader from '../components/loader/Loader';
 export default function Browse({ IsLogin }) {
   const { ctg } = useParams();
 
-  const BASE_URL = 'http://localhost:8000';
+  const BASE_URL = 'https://arcanesole-backend.onrender.com';
   const [catg, setcatg] = useState(ctg);
   const [IsLoading, setIsLoading] = useState(true);
   useEffect(() => {

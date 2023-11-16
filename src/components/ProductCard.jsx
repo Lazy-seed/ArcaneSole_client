@@ -64,7 +64,7 @@ export default function ProductCard({ data,IsLogin }) {
       price: data.price
     }
 
-    axios.post(`http://localhost:8000/api/addBag`, data2, { withCredentials: true })
+    axios.post(`https://arcanesole-backend.onrender.com/api/addBag`, data2, { withCredentials: true })
       .then((res) => {
         console.log(res.data);
       });

@@ -11,7 +11,7 @@ import axios from 'axios';
 export default function Profile() {
     useEffect(() => {
 
-        axios.get('http://localhost:8000/api/userInfo', { withCredentials: true }).then((response) => {
+        axios.get('https://arcanesole-backend.onrender.com/api/userInfo', { withCredentials: true }).then((response) => {
             console.log(response.data);
             setUserInfo(response.data.userInfo)
         })
@@ -71,7 +71,7 @@ export default function Profile() {
     );
 
     function Logout(params) {
-        axios.get('http://localhost:8000/api/Logout', { withCredentials: true })
+        axios.get('https://arcanesole-backend.onrender.com/api/Logout', { withCredentials: true })
         .then((response) => {
             window.location.href='/';
         })

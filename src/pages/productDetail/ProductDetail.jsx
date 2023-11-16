@@ -9,7 +9,7 @@ import Loader from '../../components/loader/Loader';
 
 export default function ProductDetail({ isLogin }) {
     const { id } = useParams();
-    const BASE_URL = 'http://localhost:8000';
+    const BASE_URL = 'https://arcanesole-backend.onrender.com';
     useEffect(() => {
         axios.get(`${BASE_URL}/api/singleShoe/${id}`, { withCredentials: true })
             .then((res) => {

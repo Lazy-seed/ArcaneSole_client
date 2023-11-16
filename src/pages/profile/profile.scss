@@ -1,0 +1,68 @@
+.profile {
+
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+
+    .left {
+        width: 30%;
+
+        .menu {
+            // border: solid 1px black;
+            padding: 10px 30px;
+
+            ul {
+
+                li {
+                    display: flex;
+                    align-items: center;
+                    margin: 10px;
+                    cursor: pointer;
+
+                    
+                    
+                    a {
+                        display: flex;
+                        align-items: center;
+                        padding: 5px 20px;
+                        border-radius: 10px;
+                        &:hover {
+                            background: #292929;
+                            color: white;
+                        }
+                    }
+
+                    // profile
+                    img {
+                        width: 80px;
+                    }
+
+                    #info {}
+
+
+                    // list
+                    #icon {
+                        font-size: 30px;
+                        margin-right: 10px;
+                    }
+
+                    h2 {
+                        font-size: 20px;
+                        font-weight: 500;
+                    }
+                }
+
+              
+            }
+        }
+
+    }
+
+    .right {
+        // border: solid 1px;
+        width: 60%;
+
+
+
+    }
+}

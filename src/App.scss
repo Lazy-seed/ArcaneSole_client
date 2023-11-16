@@ -1,0 +1,72 @@
+.btn {
+  &:active {
+    transition: transform 0.5s ease-out;
+    transform: scale(0.8);
+  }
+}
+
+
+
+
+// btn
+.btn1 {
+  padding: 10px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: all .2s;
+  text-align: center;
+  background: #000;
+  color: #fff;
+  transition: transform 0.5s ease-out;
+  &:hover {
+    outline-offset: -5px;
+    outline: solid 1px rgb(255, 255, 255);
+  }
+  &:active {
+    transform: scale(0.8);
+    outline-offset: -5px;
+    outline: solid 1px rgb(255, 255, 255);
+  }
+}
+
+.btn2 {
+  color: #000;
+  border: solid 1px black;
+  background: #fff;
+  padding: 5px 10px;
+  text-align: center;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: all .2s;
+  &:active {
+    transition: transform 0.5s ease-out;
+    transform: scale(0.8);
+  }
+  &:hover{
+    background: #000;
+    color: #fff !important;
+  }
+}
+
+.active-btn2 {
+  background: #000;
+  color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .4);
+  outline-offset: -5px;
+  outline: solid 1px rgb(255, 255, 255);
+}
+
+
+// link
+a{
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
+ul {
+  list-style: none;
+}
+
+

@@ -39,7 +39,7 @@ function App() {
       />
       <Navbar IsLogin={IsLogin} />
       <Routes>
-        <Route path='/' exact={true} element={<Home />} />
+        <Route path='/' exact={true} element={<Home  IsLogin={IsLogin}/>} />
         <Route path='/browse/:ctg' exact={true} element={<Browse  IsLogin={IsLogin}/>} />
         <Route path='/ProductDetail/:id' exact={true} element={<ProductDetail />} />
         <Route path='/bag' exact={true} element={<Bag />} />

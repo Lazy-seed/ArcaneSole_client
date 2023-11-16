@@ -1,6 +1,6 @@
-import React from 'react'
+import React ,{useState,useEffect}from 'react'
 import { Col, Container, Row } from 'reactstrap'
-
+import axios from 'axios'
 
 // componenst
 import ProductCard from '../components/ProductCard';
@@ -12,31 +12,40 @@ import bg from '../assets/img/bg.png'
 import s2 from '../assets/img/s2.png'
 import { toast } from 'react-hot-toast';
 
-function check(params) {
-    toast.success('Successfully toasted!')
-}
 
-export default function Home() {
+
+
+export default function Home({IsLogin}) {
+    
+useEffect(() => {
+    setData(false)
+    axios.get(`https://arcanesole-backend.onrender.com/api/allProducts/all`, { withCredentials: true })
+        .then((res) => {
+            setData(res.data.products);
+        });
+
+}, [])
+const [Data, setData] = useState('')
     return (
         <div>
 
-        <div className=' bg-black'>
-            <Container className='d-flex align-items-center overflow-hidden '>
-                <Row className=' align-items-center '>
-                    <Col md="4" style={{ zIndex: "99" }}>
-                        <div className='bg-black text-white   text-center text-lg-end ' >
-                            <h1 className='display-2 fw-bolder   '>Find Your<br />
-                                Best Pair<br />
-                                Now !</h1>
+            <div className=' bg-black'>
+                <Container className='d-flex align-items-center overflow-hidden '>
+                    <Row className=' align-items-center '>
+                        <Col md="4" style={{ zIndex: "99" }}>
+                            <div className='bg-black text-white   text-center text-lg-end ' >
+                                <h1 className='display-2 fw-bolder   '>Find Your<br />
+                                    Best Pair<br />
+                                    Now !</h1>
 
-                            <button className='btn btn-primary fw-bold fs-6 px-3' onClick={check}>Buy Now</button>
-                        </div>
-                    </Col>
-                    <Col md="8">
-                        <img src={shoe1} alt="" className='  w-100' style={{ objectFit: "cover", transform: "scale(1.5)" }} />
-                    </Col>
-                </Row>
-            </Container>
+                                <button className='btn btn-primary fw-bold fs-6 px-3' >Buy Now</button>
+                            </div>
+                        </Col>
+                        <Col md="8">
+                            <img src={shoe1} alt="" className='  w-100' style={{ objectFit: "cover", transform: "scale(1.5)" }} />
+                        </Col>
+                    </Row>
+                </Container>
 
             </div>
 
@@ -51,9 +60,9 @@ export default function Home() {
                 <div>
                     <Row>
                         {
-                            [1, 2, 3].map(() => (
+                            Data && Data.slice(0,3).map((data,index) => (
                                 <Col md='6' lg='4'>
-                                    <ProductCard />
+                                    <ProductCard data={data} key={index} IsLogin={IsLogin} />
                                 </Col>
                             ))
                         }

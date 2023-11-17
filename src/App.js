@@ -27,6 +27,7 @@ function App() {
 
     axios.get('https://arcanesole-backend.onrender.com/api/userInfo', { withCredentials: true }).then((response) => {
       setIsLogin(response.data.success);
+      console.log("userlohin == ", response.data.success );
     })
   }, [])
   const [IsLogin, setIsLogin] = useState(false);

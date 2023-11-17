@@ -113,15 +113,15 @@ export default function Address() {
             <form>
                 <Row className='g-3  justify-content-center '>
                     <Col lg='5'>
-                        <label for="exampleInputEmail1" className="form-label">House No/Building</label>
+                        <label htmlFor="exampleInputEmail1" className="form-label">House No/Building</label>
                         <input type="text" className="form-control" id="house" aria-describedby="emailHelp" />
                     </Col>
                     <Col lg='5'>
-                        <label for="exampleInputEmail1" className="form-label">Street/Area</label>
+                        <label htmlFor="exampleInputEmail1" className="form-label">Street/Area</label>
                         <input type="text" className="form-control" id="area" aria-describedby="emailHelp" />
                     </Col>
                     <Col lg='5'>
-                        <label for="exampleInputEmail1" className="form-label">State</label>
+                        <label htmlFor="exampleInputEmail1" className="form-label">State</label>
                         <select className="form-select" aria-label="Default select example" id="state">
                             {state_data && state_data.map((state, index) => {
                                 return (
@@ -131,7 +131,7 @@ export default function Address() {
                         </select>
                     </Col>
                     <Col lg='5'>
-                        <label for="exampleInputEmail1" className="form-label">City</label>
+                        <label htmlFor="exampleInputEmail1" className="form-label">City</label>
                         <select className="form-select" aria-label="Default select example" id="city">
                             {city_data && city_data.map((city, index) => {
                                 return (
@@ -141,7 +141,7 @@ export default function Address() {
                         </select>
                     </Col>
                     <Col lg='5'>
-                        <label for="exampleInputEmail1" className="form-label">Zip/Pincode</label>
+                        <label htmlFor="exampleInputEmail1" className="form-label">Zip/Pincode</label>
                         <input type="text" className="form-control" id="pincode" aria-describedby="emailHelp" />
                     </Col>
                 </Row>

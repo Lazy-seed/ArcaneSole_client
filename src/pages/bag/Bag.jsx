@@ -45,7 +45,7 @@ export default function Bag() {
                                                 <div className='d-flex justify-content-between align-items-end '>
 
                                                     <div className='d-flex gap-3'>
-                                                        <label htmlFor=""> Size
+                                                        <label htmlhtmlFor=""> Size
                                                             <select className="form-select form-select-sm " aria-label=" select example" defaultValue={data.size} onChange={(e) => { updBagSize(data._id, e.target.value); }}>
                                                                 <option value="6">6</option>
                                                                 <option value="7">7</option>
@@ -54,7 +54,7 @@ export default function Bag() {
                                                                 <option value="10">10</option>
                                                                 <option value="11">11</option>
                                                             </select> </label>
-                                                        <label htmlFor=""> Qty
+                                                        <label htmlhtmlFor=""> Qty
                                                             <select className="form-select form-select-sm " aria-label=" select example" defaultValue={data.qty} onChange={(e) => updBagQty(data._id, e.target.value)}>
                                                                 <option value="1">1</option>
                                                                 <option value="2">2</option>

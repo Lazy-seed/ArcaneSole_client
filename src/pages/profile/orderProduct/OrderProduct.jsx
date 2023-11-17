@@ -39,8 +39,8 @@ export default function OrderProduct() {
                                             <h3>White</h3>
 
                                             <div id="drop-d">
-                                                <label htmlFor="size" id='size'>Size: {item.size}</label>
-                                                <label htmlFor="qty" id='qty'>Quantity: {item.qty}</label>
+                                                <label htmlhtmlFor="size" id='size'>Size: {item.size}</label>
+                                                <label htmlhtmlFor="qty" id='qty'>Quantity: {item.qty}</label>
                                             </div>
                                         </div>
                                         <div id="del">

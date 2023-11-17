@@ -1,15 +1,11 @@
 .productDetail {
-    margin: auto;
     margin-top: 50px;
-    width: 100%;
 
 
 
     // top
-    .top {
-        display: flex;
-        justify-content: center;
-
+    .top {  
+      
 
         // left img
         .left {
@@ -50,7 +46,6 @@
         // right detail 
 
         .right {
-            margin-left: 40px;
 
             #info {
                 * {
@@ -144,7 +139,7 @@
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    transition: all .25s ;
+                    transition: all .25s;
 
                     &:nth-child(1) {
                         background: #000;
@@ -157,6 +152,7 @@
                             outline-offset: -5px;
                             outline: solid 1px white;
                         }
+
                         &:active {
                             transform: scale(0.97);
                         }

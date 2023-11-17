@@ -6,6 +6,7 @@ import axios from "axios";
 import { HiHeart } from "react-icons/hi";
 import { useParams } from 'react-router-dom';
 import Loader from '../../components/loader/Loader';
+import { Col, Container, Row } from 'reactstrap';
 
 export default function ProductDetail({ isLogin }) {
     const { id } = useParams();
@@ -50,12 +51,12 @@ export default function ProductDetail({ isLogin }) {
 
     console.log(Size_Len);
     return (
-        <div className='productDetail'>
+        <Container fluid='sm' className='productDetail'>
            
-            <div className="top">
+            <Row className="top  justify-content-center  ">
 
                 {/* img */}
-                <div className="left">
+                <Col lg="6" className="left">
                     <div className="mini_Img">
                         <ul>
                             <li><img src={Data.img1} alt="" onMouseEnter={() => setimg(Data.img1)} /></li>
@@ -67,11 +68,11 @@ export default function ProductDetail({ isLogin }) {
                     <div className="lar_Img">
                         <img src={img} alt="" />
                     </div>
-                </div>
+                </Col>
 
 
 
-                <div className="right">
+                <Col lg="6" className="right">
 
                     <div id="info">
                         <h1>{Data.name}</h1>
@@ -100,10 +101,10 @@ export default function ProductDetail({ isLogin }) {
                         <button>Wistlist <HiHeart /></button>
                     </div>
 
-                </div>
-            </div>
+                </Col>
+            </Row>
 
-        </div>
+        </Container>
     );
 
 

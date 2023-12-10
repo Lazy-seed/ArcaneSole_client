@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from "axios";
 import { Col, Container, Row } from 'reactstrap'
 import { useNavigate } from "react-router-dom";
@@ -6,6 +6,15 @@ import { toast } from 'react-hot-toast';
 
 export default function Address() {
     const navigate = useNavigate();
+    useEffect(() => {
+        axios.get(`https://arcanesole-backend.onrender.com/api/getBagPrice`, { withCredentials: true })
+            .then((res) => {
+                console.log(res.data);
+                setTotalPrice(res.data.totalPrice)
+            });
+
+    }, [])
+const [TotalPrice, setTotalPrice] = useState(0)
 
     // state----------------------------------------------------------
     const state_data = ["Maharashtra", "Gujrat", "Uttar Pradesh"];
@@ -23,7 +32,6 @@ export default function Address() {
 
 
     // price
-    let TotalPrice = 0;
     let DeliveryPrice = 495;
 
     function loadScript(src) {

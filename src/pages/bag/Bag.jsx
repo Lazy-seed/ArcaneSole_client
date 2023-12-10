@@ -13,6 +13,10 @@ export default function Bag() {
         axios.get(`https://arcanesole-backend.onrender.com/api/getBag`, { withCredentials: true })
             .then((res) => {
                 setData(res.data.bagItems);
+                // console.log(res.data);
+            });
+        axios.get(`https://arcanesole-backend.onrender.com/api/getBagPrice`, { withCredentials: true })
+            .then((res) => {
                 console.log(res.data);
             });
 
@@ -28,7 +32,7 @@ export default function Bag() {
                     <div className='d-flex flex-column  gap-3'>
                         {
                             Data && Data.map((data, index) => {
-                        TotalPrice += data.price * data.qty;
+                                TotalPrice += data.price * data.qty;
 
                                 return (
                                     <Card>
@@ -37,7 +41,7 @@ export default function Bag() {
                                                 <img className="w-100 h-100 " style={{ objectFit: "cover" }} src={data.img1} alt="" />
                                             </Col>
                                             <Col md="8" className=' position-relative py-2 overflow-hidden  '>
-                                                <CgTrash onClick={()=>{delBag(data._id)}} className='fs-3 position-absolute  end-0  me-3 mt-2' />
+                                                <CgTrash onClick={() => { delBag(data._id) }} className='fs-3 position-absolute  end-0  me-3 mt-2' />
                                                 <h3>{data.name}</h3>
                                                 <h5>Women's Shoes</h5>
                                                 <h6>Color : Black</h6>
@@ -45,7 +49,7 @@ export default function Bag() {
                                                 <div className='d-flex justify-content-between align-items-end '>
 
                                                     <div className='d-flex gap-3'>
-                                                        <label htmlhtmlFor=""> Size
+                                                        <label htmlFor=""> Size
                                                             <select className="form-select form-select-sm " aria-label=" select example" defaultValue={data.size} onChange={(e) => { updBagSize(data._id, e.target.value); }}>
                                                                 <option value="6">6</option>
                                                                 <option value="7">7</option>
@@ -54,7 +58,7 @@ export default function Bag() {
                                                                 <option value="10">10</option>
                                                                 <option value="11">11</option>
                                                             </select> </label>
-                                                        <label htmlhtmlFor=""> Qty
+                                                        <label htmlFor=""> Qty
                                                             <select className="form-select form-select-sm " aria-label=" select example" defaultValue={data.qty} onChange={(e) => updBagQty(data._id, e.target.value)}>
                                                                 <option value="1">1</option>
                                                                 <option value="2">2</option>

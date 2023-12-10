@@ -11,6 +11,7 @@ import shoe1 from '../assets/img/shoe1.png'
 import bg from '../assets/img/bg.png'
 import s2 from '../assets/img/s2.png'
 import { toast } from 'react-hot-toast';
+import { Link } from 'react-router-dom';
 
 
 
@@ -38,7 +39,7 @@ const [Data, setData] = useState('')
                                     Best Pair<br />
                                     Now !</h1>
 
-                                <button className='btn btn-primary fw-bold fs-6 px-3' >Buy Now</button>
+                                <Link to='/browse/all' className='btn btn-primary fw-bold fs-6 px-3' >Buy Now</Link>
                             </div>
                         </Col>
                         <Col md="8">
@@ -52,7 +53,9 @@ const [Data, setData] = useState('')
 
             <Container className=' mt-5'>
 
-                <div className='d-flex gap-2 mb-4'>
+                <div className='d-flex gap-2 mb-4 '>
+                    
+                    <h6 className='btn2   ' ><Link to='/browse/all' className='  px-4 mt-1 ' >ALL</Link></h6>
                     <h6 className='btn2  px-4 py-2 active-btn2' >Popular</h6>
                     <h6 className='btn2 px-4 py-2 ' >Most viewed</h6>
                     <h6 className='btn2 px-4 py-2 ' >Trending</h6>
@@ -89,7 +92,6 @@ const [Data, setData] = useState('')
                             <h2 className='display-6 fw-bolder text-white'>usecode : <span className='btn btn-primary fs-2 py-0 fw-bold'>FIRST30</span></h2>
                         </Col>
                         <Col md="5">
-
                             <img src={s2} alt="" className='w-100' style={{ transform: "rotate(24deg)" }} />
                         </Col>
                     </Row>

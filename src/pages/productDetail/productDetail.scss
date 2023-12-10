@@ -9,7 +9,6 @@
 
         // left img
         .left {
-            display: flex;
 
             .mini_Img {
 
@@ -18,7 +17,6 @@
                         width: 100px;
                         height: 100px;
                         margin: 10px;
-
                         cursor: pointer;
 
                         img {
@@ -32,8 +30,8 @@
             }
 
             .lar_Img {
-                width: 600px;
-                height: 550px;
+                max-width: 600px;
+                max-height: 550px;
 
                 img {
                     width: 100%;
@@ -76,7 +74,6 @@
             }
 
             #size {
-                width: 400px;
                 margin-top: 20px;
 
                 .active {
@@ -93,8 +90,6 @@
 
                 ul {
                     display: flex;
-                    justify-content: center;
-                    align-items: center;
                     flex-wrap: wrap;
 
                     li {

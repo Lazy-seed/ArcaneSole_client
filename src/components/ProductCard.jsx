@@ -1,15 +1,25 @@
 
 import React from 'react'
 import { GoHeart } from "react-icons/go";
-import { GoHeartFill } from "react-icons/go";
+// import { GoHeartFill } from "react-icons/go";
 import { Card, CardBody } from 'reactstrap';
 import AOS from 'aos';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import axios from "axios";
 
+export const formattedNumber = (num) => {
+  try {
+    return num.toLocaleString('en-IN', { maximumFractionDigits: 0 });
+  } catch (error) {
+    console.error('Error formatting number:', error);
+    
+    return num
+  }
+};
 export default function ProductCard({ data,IsLogin }) {
   AOS.init({ duration: 500 })
+
 
   if (data) {
     return (
@@ -19,9 +29,9 @@ export default function ProductCard({ data,IsLogin }) {
         <div className=' overflow-hidden ' style={{ height: "230px ", }}>
           <img src={data.img1} className="  w-100  h-100 " style={{ objectFit: "cover" }} alt="..." />
         </div>
-        <CardBody className='d-flex flex-column'>
+        <CardBody className='d-flex flex-column '>
           <h4>{data.name}</h4>
-          <h5>₹ {data.price}</h5>
+          <h5>₹ {formattedNumber(data.price)}</h5>
           <h6  className=" btn1 active-btn" onClick={addBag}>Add to Cart</h6>
           <Link to={`/ProductDetail/${data._id}`} className="btn2 fw-bold" >View</Link>
 

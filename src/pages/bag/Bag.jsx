@@ -6,6 +6,7 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import { useState } from 'react'
 import { toast } from 'react-hot-toast'
+import { formattedNumber } from '../../components/ProductCard'
 
 
 export default function Bag() {
@@ -13,7 +14,7 @@ export default function Bag() {
         axios.get(`https://arcanesole-backend.onrender.com/api/getBag`, { withCredentials: true })
             .then((res) => {
                 setData(res.data.bagItems);
-                // console.log(res.data);
+                console.log(res.data);
             });
         axios.get(`https://arcanesole-backend.onrender.com/api/getBagPrice`, { withCredentials: true })
             .then((res) => {
@@ -26,7 +27,7 @@ export default function Bag() {
     let DeliveryPrice = 495;
     return (
         <Container className='mt-5'>
-            <Row>
+            <Row className='gy-5'>
                 <Col lg="8">
                     <h2 className='fw-bold'>Bag</h2>
                     <div className='d-flex flex-column  gap-3'>
@@ -35,7 +36,9 @@ export default function Bag() {
                                 TotalPrice += data.price * data.qty;
 
                                 return (
-                                    <Card>
+                                    <Card >
+                                        <CardBody className='py-0'>
+
                                         <Row >
                                             <Col md="4" className=' overflow-hidden ' style={{ height: "180px ", }} >
                                                 <img className="w-100 h-100 " style={{ objectFit: "cover" }} src={data.img1} alt="" />
@@ -67,10 +70,12 @@ export default function Bag() {
                                                             </select> </label>
                                                     </div>
 
-                                                    <h4 className='me-3'>MRP: ₹ {data.price * data.qty}</h4>
+                                                    <h4 className='me-3'>MRP: ₹ {formattedNumber(data.price * data.qty)}</h4>
                                                 </div>
                                             </Col>
                                         </Row>
+                                        </CardBody>
+
                                     </Card>
                                 )
                             })
@@ -83,7 +88,7 @@ export default function Bag() {
                         <CardBody className='d-flex flex-column  gap-2'>
                             <div className='d-flex align-items-center  justify-content-between '>
                                 <h5>Subtotal</h5>
-                                <h5>₹ {TotalPrice}</h5>
+                                <h5>₹ {formattedNumber(TotalPrice)}</h5>
                             </div>
                             <div className='d-flex align-items-center  justify-content-between '>
                                 <h5>Delivery & Handling</h5>
@@ -93,7 +98,7 @@ export default function Bag() {
                             <hr />
                             <div className='d-flex align-items-center  justify-content-between '>
                                 <h5>Total</h5>
-                                <h5>₹ {TotalPrice + DeliveryPrice}</h5>
+                                <h5>₹ {formattedNumber(TotalPrice + DeliveryPrice)}</h5>
                             </div>
                             <hr />
                             <Link to='/address' className='btn1 fs-5 rounded-5 text-white '> Checkout</Link>
@@ -109,7 +114,6 @@ export default function Bag() {
         axios.get(`https://arcanesole-backend.onrender.com/api/getBag`, { withCredentials: true })
             .then((res) => {
                 setData(res.data.bagItems);
-                uptData()
             });
     }
 

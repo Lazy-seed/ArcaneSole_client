@@ -2,40 +2,47 @@ import React, { useEffect, useState } from 'react'
 import { Col, Container, Row } from 'reactstrap'
 import ProductCard from '../components/ProductCard'
 import axios from "axios";
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Loader from '../components/loader/Loader';
 
 export default function Browse({ IsLogin }) {
-  const { ctg } = useParams();
+  const { ctg,page } = useParams();
 
-  const BASE_URL = 'https://arcanesole-backend.onrender.com';
+  const BASE_URL = 'http://localhost:8000';
   const [catg, setCatg] = useState(ctg);
+  const [Page, setPage] = useState(page)
   const [IsLoading, setIsLoading] = useState(true);
   useEffect(() => {
     setIsLoading(true)
     setData(false)
-    axios.get(`${BASE_URL}/api/allProducts/${catg}`, { withCredentials: true })
+    axios.get(`${BASE_URL}/api/allProducts/${catg}/${Page}`, { withCredentials: true })
       .then((res) => {
         setData(res.data.products);
+        setProLen(res.data.proLen)
         console.log(res.data);
         setIsLoading(false)
       });
 
-  }, [catg])
+  }, [catg,Page])
   const [Data, setData] = useState('')
+  const [ProLen, setProLen] = useState('')
   const categoryButtons = ['all', 'men', 'women', 'girl', 'boy'];
+ 
+  const pa = Math.ceil(ProLen/6)
+  const pages = Array.from({ length: pa }, (_, index) => index + 1);
+
   return (
     <Container className=' mt-5 pt-5'>
 
-<div className='d-flex gap-3 mb-4'>
+      <div className='d-flex flex-wrap  gap-3 mb-4'>
         {categoryButtons.map((category) => (
-          <h6
+          <Link to={`/browse/${category}/1`}
             key={category}
             onClick={() => setCatg(category)}
-            className={`btn2 py-2 px-4 ${catg === category ? 'active-btn2' : ''}`}
+            className={`btn2 py-2 px-4 ${catg === category ? 'active-btn2 text-white' : ''}`}
           >
             {category.charAt(0).toUpperCase() + category.slice(1)}
-          </h6>
+          </Link>
         ))}
       </div>
       <div>
@@ -55,17 +62,19 @@ export default function Browse({ IsLogin }) {
         </Row>
       </div>
 
-      <nav aria-label="Page navigation example " style={{marginTop:"20px"}}>
+
+
+      <nav aria-label="Page navigation example " style={{ marginTop: "20px" }}>
         <ul className="pagination justify-content-center">
-          <li className="page-item disabled">
-            <a className="page-link">Previous</a>
-          </li>
-          <li className="page-item active text-white"><a className="page-link" href="#">1</a></li>
-          <li className="page-item"><a className="page-link" href="#">2</a></li>
-          <li className="page-item"><a className="page-link" href="#">3</a></li>
-          <li className="page-item">
-            <a className="page-link" href="#">Next</a>
-          </li>
+         
+         {
+         pages && pages.map((index) => {
+            return (
+              <li className={`page-item ${Page === (index) ? "active text-white": ""}`}><Link to={`/browse/all/${index }`} className="page-link" href="#" onClick={()=> setPage(index )}>{index }</Link></li>
+            )
+          })
+         }
+
         </ul>
       </nav>
 

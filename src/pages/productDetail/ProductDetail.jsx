@@ -7,10 +7,12 @@ import { HiHeart } from "react-icons/hi";
 import { useParams } from 'react-router-dom';
 import Loader from '../../components/loader/Loader';
 import { Col, Container, Row } from 'reactstrap';
+import toast from 'react-hot-toast';
+import { formattedNumber } from '../../components/ProductCard';
 
-export default function ProductDetail({ isLogin }) {
+export default function ProductDetail({ IsLogin }) {
     const { id } = useParams();
-    const BASE_URL = 'https://arcanesole-backend.onrender.com';
+    const BASE_URL = 'http://localhost:8000';
     useEffect(() => {
         axios.get(`${BASE_URL}/api/singleShoe/${id}`, { withCredentials: true })
             .then((res) => {
@@ -77,7 +79,7 @@ export default function ProductDetail({ isLogin }) {
                     <div id="info">
                         <h1>{Data.name}</h1>
                         <h3>{catg_desc} Premium Walking Shoes</h3>
-                        <h2>MRP : ₹ {Data.price}</h2>
+                        <h2>MRP : ₹ {formattedNumber(Data.price)}</h2>
                         <p>incl. of taxes</p>
                         <p>(Also includes all applicable duties)</p>
                     </div>
@@ -111,13 +113,25 @@ export default function ProductDetail({ isLogin }) {
 
 
     function addBag() {
-        if (!isLogin) {
-            return null
+        if (!IsLogin) {
+            return  toast.error("Please Login ", {
+                style: {
+                    color: '#fff',
+                    background: "red"
+                },
+            })
+             
+
         }
 
 
         if (Size === 0) {
-            return null
+            return  toast.error("chooese size", {
+                style: {
+                    color: '#fff',
+                    background: "#FF9A00"
+                },
+            })
         }
 
         const data = {

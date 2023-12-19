@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import './profileEdit.scss'; import axios from 'axios';
-import profile from './profie.jpg';
+import axios from 'axios';
+import profile from '../imgs/profie.jpg';
+import { Col, Row } from 'reactstrap';
 
 
 
@@ -21,38 +22,46 @@ export default function ProfileEdit() {
     return null;
   }
   return (
-    <div className='profileEdit'>
+    <div className='px-5'>
       <h2>Edit Profile</h2>
 
 
-      <form>
-        <div className="img_containr">
-          <img src={profile} alt="" />
+      <form >
+        <div className='px-lg-5'>
+          <img src={profile} alt="" width={150}/>
         </div>
 
-        <div className="name_box">
-          <div className="textbox">
-            <div className="label">First Name</div>
-            <input type="text" defaultValue={UserInfo.fname} id='fname' />
-          </div>
-          <div className="textbox">
-            <div className="label">Last Name</div>
-            <input type="text" defaultValue={UserInfo.lname} id='lname' />
-          </div>
-        </div>
+        <hr />
+        <Row className='px-lg-5'>
+          <Col lg="6">
+            <div className="form-floating mb-3">
+              <input type="text" id='fname'  defaultValue={UserInfo.fname} className="form-control rounded-3"  placeholder="lisa" />
+              <label htmlFor="floatingInput2">First Name</label>
+            </div>
+          </Col>
+          <Col lg="6">
+            <div className="form-floating mb-3">
+              <input type="text" id='lname'  defaultValue={UserInfo.lname ? UserInfo.lname : " "} className="form-control rounded-3"  placeholder="lisa" />
+              <label htmlFor="floatingInput2">Last Name</label>
+            </div>
+          </Col>
+          <Col lg="12">
+            <div className="form-floating mb-3">
+              <input type="text" id='email' defaultValue={UserInfo.email ? UserInfo.email : " "} className="form-control rounded-3"  placeholder="lisa" />
+              <label htmlFor="floatingInput2">E-mail</label>
+            </div>
+          </Col>
+          <Col lg="12">
+            <div className="form-floating mb-3">
+              <input type="text" id='mobile' defaultValue={UserInfo.mobile ? UserInfo.mobile : " "} className="form-control rounded-3"  placeholder="lisa" />
+              <label htmlFor="floatingInput2">Phone</label>
+            </div>
+          </Col>
+        </Row>
 
-        <div className="email_box">
-          <div className="textbox">
-            <div className="label">E-mail</div>
-            <input type="text" defaultValue={UserInfo.email} id='email' />
-          </div>
-          <div className="textbox">
-            <div className="label">Phone</div>
-            <input type="text" defaultValue={UserInfo.mobile} id='mobile' />
-          </div>
-        </div>
-
-        <button className='save_btn' onClick={save_btn}>Save</button>
+      <div className='px-5'>
+        <button className='btn btn-lg btn-primary w-100' onClick={save_btn}>Save</button>
+      </div>
       </form>
 
 

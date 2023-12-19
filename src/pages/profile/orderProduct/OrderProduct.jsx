@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios";
-import './orderProduct.scss'
+import { Card, CardBody, Col, Container, Row } from 'reactstrap'
+import { formattedNumber } from '../../../components/ProductCard';
 
 export default function OrderProduct() {
 
-    const BASE_URL = 'https://arcanesole-backend.onrender.com';
+    const BASE_URL = 'http://localhost:8000';
 
     useEffect(() => {
         axios.get(`${BASE_URL}/api/getOrders`, { withCredentials: true })
@@ -13,7 +14,7 @@ export default function OrderProduct() {
                 console.log(res.data);
             });
 
-            window.scrollTo(0,0)
+        window.scrollTo(0, 0)
 
     }, [])
 
@@ -23,7 +24,7 @@ export default function OrderProduct() {
             <h2>Orders</h2>
             <div className="content">
 
-                <ul>
+                <div className='flex flex-column gap-2'>
 
                     {Data && Data.map((order, index) => {
                         const items = order.items
@@ -31,23 +32,32 @@ export default function OrderProduct() {
 
                             items && items.map((item, index) => {
                                 return (
-                                    <li key={index}>
-                                        <div id="img"><img src={item.img1} alt="" /></div>
-                                        <div id="info">
-                                            <h1>{item.name}</h1>
-                                            <h3>Women's Shoes</h3>
-                                            <h3>White</h3>
+                                    <Card >
+                                        <CardBody className='py-0 position-relative'>
+                                                    <h3 className='fs-3 position-absolute  end-0  me-3 mt-2' >{item.status}</h3>
 
-                                            <div id="drop-d">
-                                                <label htmlFor="size" id='size'>Size: {item.size}</label>
-                                                <label htmlFor="qty" id='qty'>Quantity: {item.qty}</label>
-                                            </div>
-                                        </div>
-                                        <div id="del">
-                                            <h2 id='status'>{item.status}</h2>
-                                            <h3>MRP: ₹ {item.price}</h3>
-                                        </div>
-                                    </li>
+                                            <Row >
+                                                <Col md="4" className=' overflow-hidden ' style={{ height: "180px ", }} >
+                                                    <img className="w-100 h-100 " style={{ objectFit: "cover" }} src={item.img1} alt="" />
+                                                </Col>
+                                                <Col md="8" className='  py-2 overflow-hidden  '>
+                                                    <h3>{item.name}</h3>
+                                                    <h5>Women's Shoes</h5>
+                                                    <h6>Color : Black</h6>
+
+                                                    <div id="d-flex gap-2">
+                                                        <h6 >Size: {item.size}</h6>
+                                                        <h6 >Quantity: {item.qty}</h6>
+                                                    </div>
+
+                                                    <div className='d-flex justify-content-between align-items-end '>
+                                                        <h4 className='me-3'>MRP: ₹ {formattedNumber(item.price * item.qty)}</h4>
+                                                    </div>
+                                                </Col>
+                                            </Row>
+                                        </CardBody>
+
+                                    </Card>
                                 )
                             })
                         )
@@ -57,7 +67,7 @@ export default function OrderProduct() {
                     }
 
 
-                </ul>
+                </div>
             </div>
         </div>
     )

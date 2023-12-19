@@ -20,7 +20,10 @@ import { useState } from 'react';
 import Profile from './pages/profile/Profile';
 import ProfileEdit from './pages/profile/profileEdit/ProfileEdit';
 import OrderProduct from './pages/profile/orderProduct/OrderProduct';
+import BottomNav from './utilities/BottomNav';
 
+const local_url ="http://localhost:8000/"
+const server_url ="https://arcanesole-backend.onrender.com/"
 
 function App() {
   useEffect(() => {
@@ -33,16 +36,17 @@ function App() {
   const [IsLogin, setIsLogin] = useState(false);
 
   return (
-    <div className=' pb-5' >
+    <div className=' pb-5 mb-5' >
       <Toaster
         position="top-center"
         reverseOrder={false}
       />
       <Navbar IsLogin={IsLogin} />
+      {/* <BottomNav/> */}
       <Routes>
         <Route path='/' exact={true} element={<Home  IsLogin={IsLogin}/>} />
-        <Route path='/browse/:ctg' exact={true} element={<Browse  IsLogin={IsLogin}/>} />
-        <Route path='/ProductDetail/:id' exact={true} element={<ProductDetail />} />
+        <Route path='/browse/:ctg/:page' exact={true} element={<Browse  IsLogin={IsLogin}/>} />
+        <Route path='/ProductDetail/:id' exact={true} element={<ProductDetail IsLogin={IsLogin} />} />
         <Route path='/bag' exact={true} element={<Bag />} />
         <Route path='/liked' exact={true} element={<Liked />} />
         <Route path='/address' exact={true} element={<Address />} />

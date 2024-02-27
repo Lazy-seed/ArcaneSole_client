@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react'
 import axios from "axios";
 import { Card, CardBody, Col, Container, Row } from 'reactstrap'
 import { formattedNumber } from '../../../components/ProductCard';
+import { BaseURL } from '../../../urls';
 
 export default function OrderProduct() {
 
-    const BASE_URL = 'http://localhost:8000';
 
     useEffect(() => {
-        axios.get(`${BASE_URL}/api/getOrders`, { withCredentials: true })
+        axios.get(`${BaseURL}/api/getOrders`, { withCredentials: true })
             .then((res) => {
                 setData(res.data.order);
                 console.log(res.data);

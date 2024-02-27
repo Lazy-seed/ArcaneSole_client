@@ -4,12 +4,13 @@ import ProductCard from '../components/ProductCard'
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import Loader from '../components/loader/Loader';
+import { BaseURL } from '../urls';
 
 export default function Search() {
 
     useEffect(() => {
         setisLoading(true)
-        axios.get(`https://arcanesole-backend.onrender.com/api/SearchShoe/jordan`, { withCredentials: true })
+        axios.get(`${BaseURL}/api/SearchShoe/jordan`, { withCredentials: true })
             .then((res) => {
                 setData(res.data.result);
                 setisLoading(false)
@@ -48,7 +49,7 @@ export default function Search() {
     );
     function srch_btn() {
         setisLoading(true)
-        axios.get(`https://arcanesole-backend.onrender.com/api/SearchShoe/${Srch}`, { withCredentials: true })
+        axios.get(`${BaseURL}/api/SearchShoe/${Srch}`, { withCredentials: true })
             .then((res) => {
                 setData(res.data.result);
                 setisLoading(false)

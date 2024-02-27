@@ -9,12 +9,12 @@ import Loader from '../../components/loader/Loader';
 import { Col, Container, Row } from 'reactstrap';
 import toast from 'react-hot-toast';
 import { formattedNumber } from '../../components/ProductCard';
+import { BaseURL } from '../../urls';
 
 export default function ProductDetail({ IsLogin }) {
     const { id } = useParams();
-    const BASE_URL = 'http://localhost:8000';
     useEffect(() => {
-        axios.get(`${BASE_URL}/api/singleShoe/${id}`, { withCredentials: true })
+        axios.get(`${BaseURL}/api/singleShoe/${id}`, { withCredentials: true })
             .then((res) => {
                 setData(res.data.data);
                 console.log(res.data.data);
@@ -143,7 +143,7 @@ export default function ProductDetail({ IsLogin }) {
             price: Data.price
         }
 
-        axios.post(`${BASE_URL}/api/addBag`, data, { withCredentials: true })
+        axios.post(`${BaseURL}/api/addBag`, data, { withCredentials: true })
             .then((res) => {
                 console.log(res.data);
             });

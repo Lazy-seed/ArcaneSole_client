@@ -7,6 +7,7 @@ import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { Row, Col, Container } from 'reactstrap'
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
+import { BaseURL } from '../../urls';
 
 
 export default function Profile() {
@@ -15,7 +16,7 @@ export default function Profile() {
      const nagivate = useNavigate()
     useEffect(() => {
 
-        axios.get('https://arcanesole-backend.onrender.com/api/userInfo', { withCredentials: true }).then((response) => {
+        axios.get(`${BaseURL}/api/userInfo`, { withCredentials: true }).then((response) => {
             setUserInfo(response.data.userInfo)
             if (!response.data.success) {
                 nagivate("/")
@@ -85,7 +86,7 @@ export default function Profile() {
     );
 
     function Logout(params) {
-        axios.get('https://arcanesole-backend.onrender.com/api/Logout', { withCredentials: true })
+        axios.get(`${BaseURL}/api/Logout`, { withCredentials: true })
             .then((response) => {
                 window.location.href = '/';
             })

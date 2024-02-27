@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import logo from '../assets/img/logo.png';
 import profile from '../assets/img/profie.jpg';
 import shoe from './shoe.png';
+import { BaseURL } from '../urls';
 
 
 export default function Navbar ({ IsLogin }) {
@@ -195,7 +196,7 @@ export default function Navbar ({ IsLogin }) {
         }
         const data = { email, password }
 
-        axios.post('https://arcanesole-backend.onrender.com/api/login', data, { withCredentials: true }).then((response) => {
+        axios.post(`${BaseURL}/api/login`, data, { withCredentials: true }).then((response) => {
             console.log(response.data.success);
             console.log(response.data);
 
@@ -230,7 +231,7 @@ export default function Navbar ({ IsLogin }) {
         const data = { fname, email, password }
 
 
-        axios.post('https://arcanesole-backend.onrender.com/api/newUser', data, { withCredentials: true }).then((response) => {
+        axios.post(`${BaseURL}/api/newUser`, data, { withCredentials: true }).then((response) => {
             console.log(response);
             toast.success("Account has created , now you can login")
 

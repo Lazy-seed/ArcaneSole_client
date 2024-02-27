@@ -3,11 +3,12 @@ import axios from "axios";
 import { Col, Container, Row } from 'reactstrap'
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-hot-toast';
+import { BaseURL } from '../../urls';
 
 export default function Address() {
     const navigate = useNavigate();
     useEffect(() => {
-        axios.get(`https://arcanesole-backend.onrender.com/api/getBagPrice`, { withCredentials: true })
+        axios.get(`${BaseURL}/api/getBagPrice`, { withCredentials: true })
             .then((res) => {
                 console.log(res.data);
                 setTotalPrice(res.data.totalPrice)
@@ -62,7 +63,7 @@ const [TotalPrice, setTotalPrice] = useState(0)
         const amt = { amt: TotalPrice + DeliveryPrice }
 
         // creating a new order
-        const result = await axios.post(`https://arcanesole-backend.onrender.com/payment/orders`, amt, { withCredentials: true });
+        const result = await axios.post(`${BaseURL}/payment/orders`, amt, { withCredentials: true });
 
         if (!result) {
             alert("Server error. Are you online?");
@@ -89,7 +90,7 @@ const [TotalPrice, setTotalPrice] = useState(0)
                     razorpaySignature: response.razorpay_signature,
                 };
 
-                const result = await axios.post(`https://arcanesole-backend.onrender.com/payment/success`, data);
+                const result = await axios.post(`${BaseURL}/payment/success`, data);
 
                 // alert(result.data.msg);
                 if (result.data.msg === 'success') {
@@ -187,7 +188,7 @@ const [TotalPrice, setTotalPrice] = useState(0)
 
         const address = { house, area, state, city, pincode }
 
-        axios.post(`https://arcanesole-backend.onrender.com/api/newOrder`, address, { withCredentials: true }).then((res) => {
+        axios.post(`${BaseURL}/api/newOrder`, address, { withCredentials: true }).then((res) => {
             console.log(res.data);
 
         })

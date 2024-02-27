@@ -7,6 +7,7 @@ import AOS from 'aos';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import axios from "axios";
+import { BaseURL } from '../urls';
 
 export const formattedNumber = (num) => {
   try {
@@ -74,7 +75,7 @@ export default function ProductCard({ data,IsLogin }) {
       price: data.price
     }
 
-    axios.post(`https://arcanesole-backend.onrender.com/api/addBag`, data2, { withCredentials: true })
+    axios.post(`${BaseURL}/api/addBag`, data2, { withCredentials: true })
       .then((res) => {
         console.log(res.data);
       });

@@ -7,16 +7,17 @@ import axios from 'axios'
 import { useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { formattedNumber } from '../../components/ProductCard'
+import { BaseURL } from '../../urls'
 
 
 export default function Bag() {
     useEffect(() => {
-        axios.get(`https://arcanesole-backend.onrender.com/api/getBag`, { withCredentials: true })
+        axios.get(`${BaseURL}/api/getBag`, { withCredentials: true })
             .then((res) => {
                 setData(res.data.bagItems);
                 console.log(res.data);
             });
-        axios.get(`https://arcanesole-backend.onrender.com/api/getBagPrice`, { withCredentials: true })
+        axios.get(`${BaseURL}/api/getBagPrice`, { withCredentials: true })
             .then((res) => {
                 console.log(res.data);
             });
@@ -111,14 +112,14 @@ export default function Bag() {
     )
 
     function uptData() {
-        axios.get(`https://arcanesole-backend.onrender.com/api/getBag`, { withCredentials: true })
+        axios.get(`${BaseURL}/api/getBag`, { withCredentials: true })
             .then((res) => {
                 setData(res.data.bagItems);
             });
     }
 
     function delBag(id) {
-        axios.get(`https://arcanesole-backend.onrender.com/api/delBag/${id}`, { withCredentials: true })
+        axios.get(`${BaseURL}/api/delBag/${id}`, { withCredentials: true })
             .then((res) => {
                 console.log(res.data);
                 toast.success("Item has been deleted")
@@ -132,7 +133,7 @@ export default function Bag() {
             pID: id,
             size: size
         }
-        axios.post(`https://arcanesole-backend.onrender.com/api/uptBag/`, data, { withCredentials: true })
+        axios.post(`${BaseURL}/api/uptBag/`, data, { withCredentials: true })
             .then((res) => {
                 console.log(res.data);
                 toast.success("Size has been updated")
@@ -146,7 +147,7 @@ export default function Bag() {
             qty: qty
         }
         // return null
-        axios.post(`https://arcanesole-backend.onrender.com/api/uptBag/`, data, { withCredentials: true })
+        axios.post(`${BaseURL}/api/uptBag/`, data, { withCredentials: true })
             .then((res) => {
                 console.log(res.data);
                 toast.success("Qty has been updated")

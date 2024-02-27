@@ -4,18 +4,18 @@ import ProductCard from '../components/ProductCard'
 import axios from "axios";
 import { Link, useParams } from 'react-router-dom';
 import Loader from '../components/loader/Loader';
+import { BaseURL } from '../urls';
 
 export default function Browse({ IsLogin }) {
   const { ctg,page } = useParams();
 
-  const BASE_URL = 'http://localhost:8000';
   const [catg, setCatg] = useState(ctg);
   const [Page, setPage] = useState(page)
   const [IsLoading, setIsLoading] = useState(true);
   useEffect(() => {
     setIsLoading(true)
     setData(false)
-    axios.get(`${BASE_URL}/api/allProducts/${catg}/${Page}`, { withCredentials: true })
+    axios.get(`${BaseURL}/api/allProducts/${catg}/${Page}`, { withCredentials: true })
       .then((res) => {
         setData(res.data.products);
         setProLen(res.data.proLen)

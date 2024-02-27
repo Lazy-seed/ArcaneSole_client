@@ -13,6 +13,7 @@ import s2 from '../assets/img/s2.png'
 import { toast } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import Loader from '../components/loader/Loader';
+import { BaseURL } from '../urls';
 
 
 
@@ -20,7 +21,7 @@ import Loader from '../components/loader/Loader';
 export default function Home({ IsLogin }) {
 
     useEffect(() => {
-        axios.get(`https://arcanesole-backend.onrender.com/api/randomProducts/9`, { withCredentials: true })
+        axios.get(`${BaseURL}/api/randomProducts/9`, { withCredentials: true })
             .then((res) => {
                 setData({
                      popular: res.data.products.slice(0,3),
@@ -39,9 +40,9 @@ export default function Home({ IsLogin }) {
     })
     const [ShowData, setShowData] = useState(Data.popular)
     
-    if (!Data.popular ) {
-        return <Loader/>
-    }
+    // if (!Data.popular ) {
+    //     return <Loader/>
+    // }
     return (
         <div>
 
@@ -84,6 +85,11 @@ export default function Home({ IsLogin }) {
                                 </Col>
                             ))
                         }
+
+                        {
+                            !Data.popular && <Loader/>
+                        }
+
                     </Row>
                 </div>
 

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import profile from '../imgs/profie.jpg';
 import { Col, Row } from 'reactstrap';
+import { BaseURL } from '../../../urls';
 
 
 
@@ -9,7 +10,7 @@ export default function ProfileEdit() {
 
   useEffect(() => {
 
-    axios.get('https://arcanesole-backend.onrender.com/api/userInfo', { withCredentials: true }).then((response) => {
+    axios.get(`${BaseURL}/api/userInfo`, { withCredentials: true }).then((response) => {
       console.log(response.data);
       setUserInfo(response.data.userInfo)
     })
@@ -76,7 +77,7 @@ export default function ProfileEdit() {
     var email = document.getElementById("email").value;
     var mobile = document.getElementById("mobile").value;
 
-    axios.post('https://arcanesole-backend.onrender.com/api/updateUser', { fname, lname, email, mobile }, { withCredentials: true }).then((res) => {
+    axios.post(`${BaseURL}/api/updateUser`, { fname, lname, email, mobile }, { withCredentials: true }).then((res) => {
       console.log(res.data);
       window.location.reload()
     }).catch((err) => console.log(err))

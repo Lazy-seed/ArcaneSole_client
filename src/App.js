@@ -21,14 +21,13 @@ import Profile from './pages/profile/Profile';
 import ProfileEdit from './pages/profile/profileEdit/ProfileEdit';
 import OrderProduct from './pages/profile/orderProduct/OrderProduct';
 import BottomNav from './utilities/BottomNav';
+import { BaseURL } from './urls';
 
-const local_url ="http://localhost:8000/"
-const server_url ="https://arcanesole-backend.onrender.com/"
 
 function App() {
   useEffect(() => {
 
-    axios.get('https://arcanesole-backend.onrender.com/api/userInfo', { withCredentials: true }).then((response) => {
+    axios.get(`${BaseURL}/api/userInfo`, { withCredentials: true }).then((response) => {
       setIsLogin(response.data.success);
       console.log("userlohin == ", response.data.success );
     })

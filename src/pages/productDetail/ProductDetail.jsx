@@ -10,28 +10,29 @@ import { Col, Container, Row } from 'reactstrap';
 import toast from 'react-hot-toast';
 import { formattedNumber } from '../../components/ProductCard';
 import { BaseURL } from '../../urls';
+import { getReq, postReq } from '../../jwt/jwtServices';
 
 export default function ProductDetail({ IsLogin }) {
     const { id } = useParams();
     useEffect(() => {
-        axios.get(`${BaseURL}/api/singleShoe/${id}`, { withCredentials: true })
+        getReq('singleShoe', id)
             .then((res) => {
-                setData(res.data.data);
-                console.log(res.data.data);
-                setimg(res.data.data.img1)
-                if (res.data.data.category === "girl") {
+                setData(res.data);
+                console.log(res.data);
+                setimg(res.data.img1)
+                if (res.data.category === "girl") {
                     setSize_Len([2, 3, 4, 5]);
                     setcatg_desc("Girl`s")
                 }
-                if (res.data.data.category === "boy") {
+                if (res.data.category === "boy") {
                     setSize_Len([3, 4, 5, 6])
                     setcatg_desc("Boy`s")
                 }
-                if (res.data.data.category === "women") {
+                if (res.data.category === "women") {
                     setSize_Len([4, 5, 6, 7, 8, 9])
                     setcatg_desc("Women`s")
                 }
-                if (res.data.data.category === "men") {
+                if (res.data.category === "men") {
                     setSize_Len([6, 7, 8, 9, 10, 11])
                     setcatg_desc("Men`s")
                 }
@@ -114,38 +115,22 @@ export default function ProductDetail({ IsLogin }) {
 
     function addBag() {
         if (!IsLogin) {
-            return  toast.error("Please Login ", {
-                style: {
-                    color: '#fff',
-                    background: "red"
-                },
-            })
-             
-
+            return  toast.error("Please Login ")
         }
 
 
         if (Size === 0) {
-            return  toast.error("chooese size", {
-                style: {
-                    color: '#fff',
-                    background: "#FF9A00"
-                },
-            })
+            return  toast.error("chooese size")
         }
 
         const data = {
             shoe_id: Data._id,
-            name: Data.name,
-            img1: Data.img1,
             qty: 1,
-            size: Size,
-            price: Data.price
+            size: Size
         }
-
-        axios.post(`${BaseURL}/api/addBag`, data, { withCredentials: true })
+        postReq('addBag', data)
             .then((res) => {
-                console.log(res.data);
+                console.log(res);
             });
     }
 

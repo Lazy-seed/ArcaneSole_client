@@ -8,20 +8,20 @@ import { useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { formattedNumber } from '../../components/ProductCard'
 import { BaseURL } from '../../urls'
+import Loader from '../../components/loader/Loader'
+import { getReq } from '../../jwt/jwtServices'
 
 
 export default function Bag() {
+    const [useLoader, setLoader] = useState(false)
     useEffect(() => {
-        axios.get(`${BaseURL}/api/getBag`, { withCredentials: true })
+        setLoader(true)
+        getReq('getBag')
             .then((res) => {
-                setData(res.data.bagItems);
-                console.log(res.data);
-            });
-        axios.get(`${BaseURL}/api/getBagPrice`, { withCredentials: true })
-            .then((res) => {
-                console.log(res.data);
-            });
-
+                setData(res.bagItems);
+                console.log(res);
+            }).catch((err) => console.log(err))
+            .finally(() =>setLoader(false) )
     }, [])
     const [Data, setData] = useState('')
     let TotalPrice = 0;
@@ -33,48 +33,51 @@ export default function Bag() {
                     <h2 className='fw-bold'>Bag</h2>
                     <div className='d-flex flex-column  gap-3'>
                         {
-                            Data && Data.map((data, index) => {
-                                TotalPrice += data.price * data.qty;
+                            useLoader && <Loader />
+                        }
+                        {
+                             Data && Data.map((data, index) => {
+                                TotalPrice += data?.product?.price * data.qty;
 
                                 return (
                                     <Card >
                                         <CardBody className='py-0'>
 
-                                        <Row >
-                                            <Col md="4" className=' overflow-hidden ' style={{ height: "180px ", }} >
-                                                <img className="w-100 h-100 " style={{ objectFit: "cover" }} src={data.img1} alt="" />
-                                            </Col>
-                                            <Col md="8" className=' position-relative py-2 overflow-hidden  '>
-                                                <CgTrash onClick={() => { delBag(data._id) }} className='fs-3 position-absolute  end-0  me-3 mt-2' />
-                                                <h3>{data.name}</h3>
-                                                <h5>Women's Shoes</h5>
-                                                <h6>Color : Black</h6>
+                                            <Row >
+                                                <Col md="4" className=' overflow-hidden ' style={{ height: "180px ", }} >
+                                                    <img className="w-100 h-100 " style={{ objectFit: "cover" }} src={data?.product?.img1} alt="" />
+                                                </Col>
+                                                <Col md="8" className=' position-relative py-2 overflow-hidden  '>
+                                                    <CgTrash onClick={() => { delBag(data._id) }} className='fs-3 position-absolute  end-0  me-3 mt-2' />
+                                                    <h4>{data?.product?.name}</h4>
+                                                    <h5>Women's Shoes</h5>
+                                                    <h6>Color : Black</h6>
 
-                                                <div className='d-flex justify-content-between align-items-end '>
+                                                    <div className='d-flex justify-content-between align-items-end '>
 
-                                                    <div className='d-flex gap-3'>
-                                                        <label htmlFor=""> Size
-                                                            <select className="form-select form-select-sm " aria-label=" select example" defaultValue={data.size} onChange={(e) => { updBagSize(data._id, e.target.value); }}>
-                                                                <option value="6">6</option>
-                                                                <option value="7">7</option>
-                                                                <option value="8">8</option>
-                                                                <option value="9">9</option>
-                                                                <option value="10">10</option>
-                                                                <option value="11">11</option>
-                                                            </select> </label>
-                                                        <label htmlFor=""> Qty
-                                                            <select className="form-select form-select-sm " aria-label=" select example" defaultValue={data.qty} onChange={(e) => updBagQty(data._id, e.target.value)}>
-                                                                <option value="1">1</option>
-                                                                <option value="2">2</option>
-                                                                <option value="3">3</option>
-                                                                <option value="4">4</option>
-                                                            </select> </label>
+                                                        <div className='d-flex gap-3'>
+                                                            <label htmlFor=""> Size
+                                                                <select className="form-select form-select-sm " aria-label=" select example" defaultValue={data.size} onChange={(e) => { updBagSize(data._id, e.target.value); }}>
+                                                                    <option value="6">6</option>
+                                                                    <option value="7">7</option>
+                                                                    <option value="8">8</option>
+                                                                    <option value="9">9</option>
+                                                                    <option value="10">10</option>
+                                                                    <option value="11">11</option>
+                                                                </select> </label>
+                                                            <label htmlFor=""> Qty
+                                                                <select className="form-select form-select-sm " aria-label=" select example" defaultValue={data.qty} onChange={(e) => updBagQty(data._id, e.target.value)}>
+                                                                    <option value="1">1</option>
+                                                                    <option value="2">2</option>
+                                                                    <option value="3">3</option>
+                                                                    <option value="4">4</option>
+                                                                </select> </label>
+                                                        </div>
+
+                                                        <h4 className='me-3'>MRP: ₹ {formattedNumber(data?.product?.price * data?.qty)}</h4>
                                                     </div>
-
-                                                    <h4 className='me-3'>MRP: ₹ {formattedNumber(data.price * data.qty)}</h4>
-                                                </div>
-                                            </Col>
-                                        </Row>
+                                                </Col>
+                                            </Row>
                                         </CardBody>
 
                                     </Card>
@@ -85,7 +88,7 @@ export default function Bag() {
                 </Col>
                 <Col lg="4">
                     <h2 className='fw-bold'>Summary</h2>
-                    <Card className='border-0'>
+                    <Card className='border'>
                         <CardBody className='d-flex flex-column  gap-2'>
                             <div className='d-flex align-items-center  justify-content-between '>
                                 <h5>Subtotal</h5>
@@ -112,19 +115,28 @@ export default function Bag() {
     )
 
     function uptData() {
-        axios.get(`${BaseURL}/api/getBag`, { withCredentials: true })
-            .then((res) => {
-                setData(res.data.bagItems);
-            });
+        getReq('getBag')
+        .then((res) => {
+            setData(res.bagItems);
+            console.log(res);
+        }).catch((err) => console.log(err))
     }
 
     function delBag(id) {
-        axios.get(`${BaseURL}/api/delBag/${id}`, { withCredentials: true })
+        toast.promise(
+            getReq('delBag', id)
             .then((res) => {
                 console.log(res.data);
-                toast.success("Item has been deleted")
                 uptData()
-            });
+            }).catch((err) => console.log(err)),
+             {
+               loading: 'Deleting...',
+               success: <b>Item has been deleted</b>,
+               error: <b>Could not delete.</b>,
+             }
+           )
+     
+
     }
 
 
@@ -138,7 +150,8 @@ export default function Bag() {
                 console.log(res.data);
                 toast.success("Size has been updated")
                 uptData()
-            });
+            }).catch((err) => console.log(err))
+
 
     }
     function updBagQty(id, qty) {
@@ -152,7 +165,8 @@ export default function Bag() {
                 console.log(res.data);
                 toast.success("Qty has been updated")
                 uptData()
-            });
+            }).catch((err) => console.log(err))
+
 
     }
 }

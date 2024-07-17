@@ -4,32 +4,23 @@ import { Col, Container, Row } from 'reactstrap'
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-hot-toast';
 import { BaseURL } from '../../urls';
+import { getReq, postReq } from '../../jwt/jwtServices';
 
 export default function Address() {
     const navigate = useNavigate();
     useEffect(() => {
-        axios.get(`${BaseURL}/api/getBagPrice`, { withCredentials: true })
+        getReq('getBagPrice')
             .then((res) => {
-                console.log(res.data);
-                setTotalPrice(res.data.totalPrice)
-            });
+                console.log(res);
+                setTotalPrice(res.totalPrice)
+            }).catch((err) => console.log(err))
 
     }, [])
-const [TotalPrice, setTotalPrice] = useState(0)
+    const [TotalPrice, setTotalPrice] = useState(0)
 
     // state----------------------------------------------------------
-    const state_data = ["Maharashtra", "Gujrat", "Uttar Pradesh"];
-    let city_data = '';
-    const [State, setState] = useState('Maharashtra');
-    if (State === 'Uttar Pradesh') {
-        city_data = ["Lucknow", "Kanpur", "Meerut"];
-    }
-    else if (State === "Gujrat") {
-        city_data = ["Surat", "Ahmedabad"]
-    }
-    else {
-        city_data = ["Mumbai", "Thane", "Pune"]
-    }
+    const state_data = ["Maharashtra", "Goa", "Gujrat"];
+    let city_data = ["Mumbai", "Thane", "Pune"]
 
 
     // price
@@ -55,10 +46,6 @@ const [TotalPrice, setTotalPrice] = useState(0)
             alert("Razorpay SDK failed to load. Are you online?");
             return;
         }
-
-
-
-
         // amount upadte
         const amt = { amt: TotalPrice + DeliveryPrice }
 
@@ -94,9 +81,9 @@ const [TotalPrice, setTotalPrice] = useState(0)
 
                 // alert(result.data.msg);
                 if (result.data.msg === 'success') {
-                     makeOrder();
+                    makeOrder({data, total:amount});
 
-                    navigate("/orderSuccess");
+                    navigate("/");
                 }
             },
             notes: {
@@ -151,7 +138,7 @@ const [TotalPrice, setTotalPrice] = useState(0)
                     </Col>
                     <Col lg='5'>
                         <label htmlFor="exampleInputEmail1" className="form-label">Zip/Pincode</label>
-                        <input type="text" className="form-control" id="pincode" aria-describedby="emailHelp" />
+                        <input type="number" className="form-control" id="pincode" aria-describedby="emailHelp" />
                     </Col>
                 </Row>
                 <div className='text-center mt-5'>
@@ -168,15 +155,15 @@ const [TotalPrice, setTotalPrice] = useState(0)
         var city = document.getElementById("city").value;
         var pincode = document.getElementById("pincode").value;
 
-        if (house.trim() === '') {
-            toast.error("all fields are required")
-            return
-        }
+        // if (house.trim() === '') {
+        //     toast.error("all fields are required")
+        //     return
+        // }
         // payment calll
         displayRazorpay()
 
     }
-    function makeOrder() {
+    function makeOrder({data, total}) {
 
         var house = document.getElementById("house").value;
         var area = document.getElementById("area").value;
@@ -188,10 +175,11 @@ const [TotalPrice, setTotalPrice] = useState(0)
 
         const address = { house, area, state, city, pincode }
 
-        axios.post(`${BaseURL}/api/newOrder`, address, { withCredentials: true }).then((res) => {
+        postReq('newOrder', {address, ...data, total})
+        .then((res) => {
             console.log(res.data);
 
-        })
+        }).catch((err)=> console.log(err))
 
     }
 }

@@ -1,6 +1,6 @@
 import axios from 'axios'
-export const BASE_URL = "http://localhost:8000/api"
-// export const BASE_URL = 'https://arcanesole-backend.onrender.com'
+// export const BASE_URL = "http://localhost:8000/api"
+export const BASE_URL = 'https://arcanesole-backend.onrender.com/api'
 
 export const WS_URL = "ws://localhost:8000"
 axios.defaults.withCredentials = true
